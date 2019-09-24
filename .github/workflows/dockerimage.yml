@@ -12,7 +12,8 @@ jobs:
     - uses: actions/checkout@v1
     - name: Build the Docker image
       run: |
-        sudo apt-get install clang-format-6.0 libllvm6.0
+        sudo apt-get install libllvm6.0
+        sudo apt-get install clang-format-6.0
         sudo apt-get update
         git clone https://gerrit.fd.io/r/vpp
         cd vpp
