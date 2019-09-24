@@ -12,9 +12,8 @@ jobs:
     - uses: actions/checkout@v1
     - name: Build the Docker image
       run: |
-        sudo add-apt-repository universe 
-        sudo add-apt-repository multiverse
-        sudo apt update
+        sudo apt-get install clang-format-6.0
+        sudo apt-get update
         git clone https://gerrit.fd.io/r/vpp
         cd vpp
         export UNATTENDED=yes
