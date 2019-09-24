@@ -18,5 +18,9 @@ jobs:
         git clone https://gerrit.fd.io/r/vpp
         cd vpp
         export UNATTENDED=yes
-        make install-dep pkg-deb pkg-deb-debug
-        # docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+        make install-dep pkg-deb
+        # pkg-deb-debug
+        TAG="vpp-docker-nodebug:$(date +%s)"
+        docker build . --file ../Dockerfile --tag ${TAG}
+        
+        
