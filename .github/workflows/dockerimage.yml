@@ -20,7 +20,16 @@ jobs:
         export UNATTENDED=yes
         make install-dep pkg-deb
         # pkg-deb-debug
+
+    - name: Publish the build to docker
+      env:
+         DOCKER_CONFIG_JSON: ${{ secrets.DOCKER_CONFIG_JSON}}
+      run: |
+        mkdir ~/.docker
+        echo ${DOCKER_CONFIG_JSON} >~/.docker/config.json
+        cd vpp
         TAG="vpp-docker-nodebug:$(date +%s)"
-        docker build . --file ../Dockerfile --tag ${TAG}
+        docker build . --file ../Dockerfile --tag ayourtch/${TAG}
+        docker push ayourtch/${TAG}
         
         
