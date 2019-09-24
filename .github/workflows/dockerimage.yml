@@ -12,6 +12,8 @@ jobs:
     - uses: actions/checkout@v1
     - name: Build the Docker image
       run: |
+        sudo add-apt-repository universe multiverse
+        sudo apt update
         git clone https://gerrit.fd.io/r/vpp
         cd vpp
         export UNATTENDED=yes
