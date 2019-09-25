@@ -2,7 +2,7 @@ name: Test VPP Build
 
 on:
   schedule:
-  - cron:  '*/30 * * * *'
+  - cron:  '15 1 * * *'
 
 #  - cron:  '0 5 * * *'
   
