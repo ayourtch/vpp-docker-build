@@ -32,7 +32,7 @@ jobs:
         echo ${DOCKER_CONFIG_JSON} >~/.docker/config.json
         cd vpp
         TAG="vpp-docker-nodebug:$(date +'%Y%m%d')"
-        docker build . --file ../Dockerfile --tag ayourtch/${TAG}
+        docker build . --no-cache --file ../Dockerfile --tag ayourtch/${TAG}
         docker push ayourtch/${TAG}
         
         
