@@ -1,10 +1,13 @@
 name: Test VPP Build
 
 on:
-# - push
-- schedule:
-  - cron:  '5 * * * *'
+  schedule:
+  - cron:  '10 * * *'
+
 #  - cron:  '0 5 * * *'
+  
+# - push
+
 
 jobs:
 
