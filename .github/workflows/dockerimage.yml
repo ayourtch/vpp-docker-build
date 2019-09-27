@@ -22,12 +22,12 @@ jobs:
         sudo apt-get install -y --allow-downgrades libllvm6.0=1:6.0-1ubuntu2
         sudo apt-get install clang-format-6.0
         sudo apt-get update
+        sudo apt-get install -y coreutils jq
         git clone https://gerrit.fd.io/r/vpp
         cd vpp
         export UNATTENDED=yes
         make install-dep pkg-deb
         # pkg-deb-debug
-
     - name: Publish the build to docker
       env:
          DOCKER_CONFIG_JSON: ${{ secrets.DOCKER_CONFIG_JSON}}
@@ -39,4 +39,11 @@ jobs:
         docker build . --no-cache --file ../Dockerfile --tag ayourtch/${TAG}
         docker push ayourtch/${TAG}
         
-        
+    - name: Delete an old docker image
+      env:
+         DOCKER_CONFIG_JSON: ${{ secrets.DOCKER_CONFIG_JSON}}
+      run: |
+         DOCKER_USER_PASS=$(echo ${DOCKER_CONFIG_JSON} | jq -r .auths[""].auth | base64 -d)
+         OLDTAG="$(date -d '5 days ago' +'%Y%m%d')"
+         curl -u $DOCKER_USER_PASS -X "DELETE" https://cloud.docker.com/v2/repositories/ayourtch/vpp-docker-nodebug/tags/$OLDTAG/
+           
